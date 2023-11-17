@@ -45,10 +45,10 @@ getPadStart('qwerty', 4, '0');
 
 //4. Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно. Будет использоваться для генерации временных географических координат
 
-const getRandomGeo = (min, max, numberSymbols) => {
+const generateRandomNumber = (min, max, numberSymbols) => {
   const randomNumber = min + Math.random() * (max - min);
   return randomNumber.toFixed(numberSymbols);
 };
 
-getRandomGeo(1, 10, 2);
-//console.log(getRandomGeo(1, 10, 2));
+generateRandomNumber(1, 10, 2);
+//console.log(generateRandomNumber(1, 10, 2));

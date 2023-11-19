@@ -29,25 +29,19 @@ const generateRandomNumber = (min, max, numberSymbols) => {
 
 //получить уникальный адрес изображения аватара
 const createIdGenerator = () => {
-  let lastGeneratedId = 0;
+  let currentId = 0;
   return () => {
-    lastGeneratedId += 1;
-    if (lastGeneratedId < 10) {
-      return `0${lastGeneratedId}`;
+    currentId += 1;
+    if (currentId < 10) {
+      return `0${currentId}`;
     }
-    return `${lastGeneratedId}`;
+    return `${currentId}`;
   };
 };
 const generatePhotoId = createIdGenerator();
 
 //получить массив случайной длины
-const createRandomArray = (values) => {
-  const features = new Array(generateRandomInteger(1, values.length));
-  for (let i = 0; i < features.length; i++) {
-    features[i] = values[i];
-  }
-  return features;
-};
+const createRandomArray = (values) => values.sort(() => 0.5 - Math.random()).slice(0, generateRandomInteger(1, values.length));
 
 const createOffer = () => ({
   author: {
@@ -72,6 +66,4 @@ const createOffer = () => ({
   },
 });
 
-const similarOffers = Array.from({length: SIMILAR_OFFERS_COUNT}, createOffer);
-
-console.log(similarOffers);
+Array.from({length: SIMILAR_OFFERS_COUNT}, createOffer);

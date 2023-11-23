@@ -1,3 +1,4 @@
-import { similarOffers } from './data.js';
+import { generateOffers } from './data.js';
+import { SIMILAR_OFFERS_COUNT } from './const.js';
 
-similarOffers.map((item) => item);
+generateOffers(SIMILAR_OFFERS_COUNT);

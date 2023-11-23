@@ -1,5 +1,5 @@
 import { generatePhotoId, generateRandomArrayElement, generateRandomNumber, generateRandomInteger, createRandomArray } from './utils.js';
-import { TITLES, TYPES, TIMES, FEATURES, DESCRIPTIONS, PHOTOS, SIMILAR_OFFERS_COUNT } from './const.js';
+import { TITLES, TYPES, TIMES, FEATURES, DESCRIPTIONS, PHOTOS } from './const.js';
 
 const createOffer = () => ({
   author: {
@@ -24,6 +24,6 @@ const createOffer = () => ({
   },
 });
 
-const similarOffers = Array.from({length: SIMILAR_OFFERS_COUNT}, createOffer);
+const generateOffers = (offersCount) => Array.from({length: offersCount}, createOffer);
 
-export { similarOffers };
+export { generateOffers };

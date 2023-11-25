@@ -71,6 +71,10 @@ similarOffers.forEach(({author, offer}) => {
     offerPhotos.insertAdjacentHTML('beforeend', `<img src="${photo}" class="popup__photo" width="45" height="40" alt="Фотография жилья">`);
   });
 
+  if (offer.photos.length === 0) {
+    offerPhotos.remove();
+  }
+
   const featuresContainer = offerFeatures;
   const featuresList = featuresContainer.querySelectorAll('.popup__feature');
   featuresList.forEach((featuresItem) => {
@@ -81,6 +85,10 @@ similarOffers.forEach(({author, offer}) => {
       featuresItem.remove();
     }
   });
+
+  if (offer.features.length === 0) {
+    offerFeatures.remove();
+  }
 
   similarListFragment.appendChild(offerElement);
 });

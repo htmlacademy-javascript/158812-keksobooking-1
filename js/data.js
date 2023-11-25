@@ -16,7 +16,7 @@ const createOffer = () => ({
     checkout: generateRandomArrayElement(TIMES),
     features: createRandomArray(FEATURES),
     description: generateRandomArrayElement(DESCRIPTIONS),
-    photos: generateRandomArrayElement(PHOTOS),
+    photos: createRandomArray(PHOTOS),
     location: {
       lat: generateRandomNumber(35.65000, 35.70000, 5),
       lng: generateRandomNumber(139.70000, 139.80000, 5)

@@ -9,5 +9,12 @@ const PHOTOS = [
 const TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const TIMES = ['12:00', '13:00', '14:00'];
 const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+const offerTypeToTitle = {
+  flat: 'Квартира',
+  bungalow: 'Бунгало',
+  house: 'Дом',
+  palace: 'Дворец',
+  hotel: 'Отель',
+};
 
-export { SIMILAR_OFFERS_COUNT, TITLES, DESCRIPTIONS, PHOTOS, TYPES, TIMES, FEATURES };
+export { SIMILAR_OFFERS_COUNT, TITLES, DESCRIPTIONS, PHOTOS, TYPES, TIMES, FEATURES, offerTypeToTitle };

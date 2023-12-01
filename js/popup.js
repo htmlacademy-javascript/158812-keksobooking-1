@@ -1,13 +1,14 @@
-import { generateOffers } from './data.js';
+import { offerTypeToTitle } from './const.js';
 
-const COUNT_OFFERS = 1;
-
-const OFFER_TYPE = {
-  flat: 'Квартира',
-  bungalow: 'Бунгало',
-  house: 'Дом',
-  palace: 'Дворец',
-  hotel: 'Отель',
+const createFeatureElements = (list, array) => {
+  list.forEach((listItem) => {
+    const isNecessary = array.some((feature) =>
+      listItem.classList.contains(`popup__feature--${feature}`),
+    );
+    if (!isNecessary) {
+      listItem.remove();
+    }
+  });
 };
 
 const similarListElement = document.querySelector('#map-canvas');
@@ -16,11 +17,9 @@ const similarOfferTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
-const similarOffers = generateOffers(COUNT_OFFERS);
+const createPopup = (props) => {
+  const { author, offer } = props;
 
-const similarListFragment = document.createDocumentFragment();
-
-similarOffers.forEach(({author, offer}) => {
   const offerElement = similarOfferTemplate.cloneNode(true);
 
   const offerTitle = offerElement.querySelector('.popup__title');
@@ -47,7 +46,7 @@ similarOffers.forEach(({author, offer}) => {
     : offerPrice.remove();
 
   offerType.textContent = (offer.type)
-    ? OFFER_TYPE[offer.type]
+    ? offerTypeToTitle[offer.type]
     : offerType.remove();
 
   offerTextCapacity.textContent = (offer.rooms || offer.guests)
@@ -70,29 +69,18 @@ similarOffers.forEach(({author, offer}) => {
   offer.photos.forEach((photo) => {
     offerPhotos.insertAdjacentHTML('beforeend', `<img src="${photo}" class="popup__photo" width="45" height="40" alt="Фотография жилья">`);
   });
-
   if (offer.photos.length === 0) {
     offerPhotos.remove();
   }
 
   const featuresContainer = offerFeatures;
   const featuresList = featuresContainer.querySelectorAll('.popup__feature');
-  featuresList.forEach((featuresItem) => {
-    const isNecessary = offer.features.some((feature) =>
-      featuresItem.classList.contains(`popup__feature--${feature}`),
-    );
-    if (!isNecessary) {
-      featuresItem.remove();
-    }
-  });
-
+  createFeatureElements(featuresList, offer.features);
   if (offer.features.length === 0) {
     offerFeatures.remove();
   }
 
-  similarListFragment.appendChild(offerElement);
-});
+  return offerElement;
+};
 
-similarListElement.appendChild(similarListFragment);
-
-export { similarOfferTemplate, similarOffers, similarListFragment };
+export { createPopup, similarListElement };

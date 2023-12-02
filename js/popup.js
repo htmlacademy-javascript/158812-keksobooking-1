@@ -51,8 +51,7 @@ const createPopup = (props) => {
   const offerFeatures = offerElement.querySelector('.popup__features');
   const offerPhotos = offerElement.querySelector('.popup__photos');
   const authorAvatar = offerElement.querySelector('.popup__avatar');
-  const featuresContainer = offerFeatures;
-  const featuresList = featuresContainer.querySelectorAll('.popup__feature');
+  const featuresList = offerFeatures.querySelectorAll('.popup__feature');
 
   offerTitle.textContent = offer.title;
   offerAddress.textContent = offer.address;

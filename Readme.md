@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Алена Каренина](https://up.htmlacademy.ru/javascript-individual/1/user/158812).
-* Наставник: [Сергей Парфенов](https://htmlacademy.ru/profile/id926645).
+* Наставник: [Мария Филиппова](https://htmlacademy.ru/profile/wonderjs).
 
 ---
 

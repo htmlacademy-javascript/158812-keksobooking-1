@@ -11,6 +11,25 @@ const createFeatureElements = (list, array) => {
   });
 };
 
+const createPhotoElements = (element, array) => {
+  element.innerHTML = '';
+  array.forEach((photo) => {
+    element.insertAdjacentHTML('beforeend', `<img src="${photo}" class="popup__photo" width="45" height="40" alt="Фотография жилья">`);
+  });
+};
+
+const checkAvailableData = (data, element) => {
+  if (!data) {
+    element.remove();
+  }
+};
+
+const checkAvailableDataArray = (data, element) => {
+  if (data.length === 0) {
+    element.remove();
+  }
+};
+
 const similarListElement = document.querySelector('#map-canvas');
 
 const similarOfferTemplate = document.querySelector('#card')
@@ -32,53 +51,31 @@ const createPopup = (props) => {
   const offerFeatures = offerElement.querySelector('.popup__features');
   const offerPhotos = offerElement.querySelector('.popup__photos');
   const authorAvatar = offerElement.querySelector('.popup__avatar');
-
-  offerTitle.textContent = (offer.title)
-    ? offer.title
-    : offerTitle.remove();
-
-  offerAddress.textContent = (offer.address)
-    ? offer.address
-    : offerAddress.remove();
-
-  offerPrice.textContent = (offer.price)
-    ? `${offer.price} ₽/ночь`
-    : offerPrice.remove();
-
-  offerType.textContent = (offer.type)
-    ? offerTypeToTitle[offer.type]
-    : offerType.remove();
-
-  offerTextCapacity.textContent = (offer.rooms || offer.guests)
-    ? `${offer.rooms} комнаты для ${offer.guests} гостей`
-    : offerTextCapacity.remove();
-
-  offerTextTime.textContent = (offer.checkin || offer.checkout)
-    ? `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`
-    : offerTextTime.remove();
-
-  offerDescription.textContent = (offer.description)
-    ? offer.description
-    : offerDescription.remove();
-
-  authorAvatar.src = (author.avatar)
-    ? author.avatar
-    : authorAvatar.remove();
-
-  offerPhotos.innerHTML = '';
-  offer.photos.forEach((photo) => {
-    offerPhotos.insertAdjacentHTML('beforeend', `<img src="${photo}" class="popup__photo" width="45" height="40" alt="Фотография жилья">`);
-  });
-  if (offer.photos.length === 0) {
-    offerPhotos.remove();
-  }
-
   const featuresContainer = offerFeatures;
   const featuresList = featuresContainer.querySelectorAll('.popup__feature');
+
+  offerTitle.textContent = offer.title;
+  offerAddress.textContent = offer.address;
+  offerPrice.textContent = offer.price;
+  offerType.textContent = offerTypeToTitle[offer.type];
+  offerTextCapacity.textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
+  offerTextTime.textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
+  offerDescription.textContent = offer.description;
+  authorAvatar.src = author.avatar;
+
+  createPhotoElements(offerPhotos, offer.photos);
   createFeatureElements(featuresList, offer.features);
-  if (offer.features.length === 0) {
-    offerFeatures.remove();
-  }
+
+  checkAvailableData(offer.title, offerTitle);
+  checkAvailableData(offer.address, offerAddress);
+  checkAvailableData(offer.price, offerPrice);
+  checkAvailableData(offer.type, offerType);
+  checkAvailableData(offer.rooms, offerTextCapacity);
+  checkAvailableData(offer.checkin, offerTextTime);
+  checkAvailableData(offer.description, offerDescription);
+  checkAvailableData(author.avatar, authorAvatar);
+  checkAvailableDataArray(offer.features, offerFeatures);
+  checkAvailableDataArray(offer.photos, offerPhotos);
 
   return offerElement;
 };

@@ -7,7 +7,7 @@ const createOffer = () => ({
   },
   offer: {
     title: generateRandomArrayElement(TITLES),
-    address: String(generateRandomNumber(35.65000, 35.70000, 5), generateRandomNumber(139.70000, 139.80000, 5)),
+    address: String(`${generateRandomNumber(35.65000, 35.70000, 5)}, ${generateRandomNumber(139.70000, 139.80000, 5)}`),
     price: generateRandomInteger(100, 1000),
     type: generateRandomArrayElement(TYPES),
     rooms: generateRandomInteger(1, 100),

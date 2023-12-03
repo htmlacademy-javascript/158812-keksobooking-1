@@ -1,26 +1,16 @@
+import { setElementsDisabled } from './utils.js';
+
 const adForm = document.querySelector('.ad-form');
 const adFormElements = adForm.querySelectorAll('select, fieldset');
-const mapFilters = document.querySelector('.map__filters');
-const mapFiltersElements = mapFilters.querySelectorAll('select, fieldset');
 
-const setFormElementsState = (elements, state) => {
-  elements.forEach((element) => {
-    element.disabled = state;
-  });
-};
-
-const disableForms = () => {
+const setFormActive = () => {
   adForm.classList.add('ad-form--disabled');
-  mapFilters.classList.add('map__filters--disabled');
-  setFormElementsState(adFormElements, true);
-  setFormElementsState(mapFiltersElements, true);
+  setElementsDisabled(adFormElements, true);
 };
 
-const enableForms = () => {
+const setFormInactive = () => {
   adForm.classList.remove('ad-form--disabled');
-  mapFilters.classList.remove('map__filters--disabled');
-  setFormElementsState(adFormElements, false);
-  setFormElementsState(mapFiltersElements, false);
+  setElementsDisabled(adFormElements, false);
 };
 
-export { disableForms, enableForms };
+export { setFormActive, setFormInactive };

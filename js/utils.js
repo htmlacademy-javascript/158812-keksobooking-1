@@ -31,4 +31,10 @@ const generatePhotoId = createIdGenerator();
 //получить массив случайной длины
 const createRandomArray = (values) => values.sort(() => 0.5 - Math.random()).slice(0, generateRandomInteger(1, values.length));
 
-export { generateRandomInteger, generateRandomArrayElement, generateRandomNumber, generatePhotoId, createRandomArray };
+const setElementsDisabled = (elements, isDisabled) => {
+  elements.forEach((element) => {
+    element.disabled = isDisabled;
+  });
+};
+
+export { generateRandomInteger, generateRandomArrayElement, generateRandomNumber, generatePhotoId, createRandomArray, setElementsDisabled };

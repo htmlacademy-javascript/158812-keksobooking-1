@@ -3,6 +3,7 @@ import { SIMILAR_OFFERS_COUNT, MAP_START_ZOOM, MAIN_PIN } from './const.js';
 import { createPopup } from './popup.js';
 import { setFormActive } from './form-switcher.js';
 import { setFiltersActive } from './filter-switcher.js';
+import { getLocationToString } from './utils.js';
 
 const mainPinLocation = document.querySelector('#address');
 
@@ -17,13 +18,6 @@ const similarPinIcon = L.icon({
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
-
-const getLocationToString = (object, number) => {
-  let {lat, lng} = object;
-  lat = Number(lat.toFixed(number));
-  lng = Number(lng.toFixed(number));
-  return `${lat}, ${lng}`;
-};
 
 //добавляет на карту специальную, «главную», метку
 const loadMainPin = (map) => {

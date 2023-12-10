@@ -100,3 +100,5 @@ adForm.addEventListener('submit', (evt) => {
     //console.log('Форма невалидна');
   }
 });
+
+export { pristine, adPrice, adType };

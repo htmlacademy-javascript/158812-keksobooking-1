@@ -1,5 +1,10 @@
 const SIMILAR_OFFERS_COUNT = 10;
 const MAX_PRICE_PER_NIGHT = 100000;
+const MAP_START_ZOOM = 12;
+const MAIN_PIN = {
+  lat: 35.68442,
+  lng: 139.75425
+};
 const TITLES = ['Квартира', 'Бунгало', 'Отель'];
 const DESCRIPTIONS = ['Описание помещения 01', 'Описание помещения 02', 'Описание помещения 03'];
 const PHOTOS = [
@@ -35,4 +40,4 @@ const minPrice = {
   palace: 10000,
 };
 
-export { SIMILAR_OFFERS_COUNT, TITLES, DESCRIPTIONS, PHOTOS, TYPES, TIMES, FEATURES, offerTypeToTitle, Title, MAX_PRICE_PER_NIGHT, roomsCapacity, minPrice };
+export { SIMILAR_OFFERS_COUNT, TITLES, DESCRIPTIONS, PHOTOS, TYPES, TIMES, FEATURES, offerTypeToTitle, Title, MAX_PRICE_PER_NIGHT, roomsCapacity, minPrice, MAP_START_ZOOM, MAIN_PIN };

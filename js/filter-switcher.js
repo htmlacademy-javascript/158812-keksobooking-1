@@ -4,12 +4,12 @@ const mapFilters = document.querySelector('.map__filters');
 const mapFiltersElements = mapFilters.querySelectorAll('select, fieldset');
 
 const setFiltersActive = () => {
-  mapFilters.classList.add('map__filters--disabled');
+  mapFilters.classList.remove('map__filters--disabled');
   setElementsDisabled(mapFiltersElements, false);
 };
 
 const setFiltersInactive = () => {
-  mapFilters.classList.remove('map__filters--disabled');
+  mapFilters.classList.add('map__filters--disabled');
   setElementsDisabled(mapFiltersElements, true);
 };
 

@@ -1,12 +1,8 @@
-import { createPopup, similarListElement } from './popup.js';
-import { generateOffers } from './data.js';
-import { SIMILAR_OFFERS_COUNT } from './const.js';
-//import { setFormActive } from './form.js';
-import { setFiltersActive } from './filter.js';
+import { setFiltersInactive } from './filter-switcher.js';
+import { setFormInactive } from './form-switcher.js';
 import './form-validator.js';
+import { initMap } from './map.js';
 
-const offers = generateOffers(SIMILAR_OFFERS_COUNT);
-similarListElement.append(createPopup(offers[0]));
-
-//setFormActive();
-setFiltersActive();
+setFormInactive();
+setFiltersInactive();
+setTimeout(initMap, 1000);

@@ -4,13 +4,13 @@ const adForm = document.querySelector('.ad-form');
 const adFormElements = adForm.querySelectorAll('select, fieldset');
 
 const setFormActive = () => {
-  adForm.classList.add('ad-form--disabled');
-  setElementsDisabled(adFormElements, true);
+  adForm.classList.remove('ad-form--disabled');
+  setElementsDisabled(adFormElements, false);
 };
 
 const setFormInactive = () => {
-  adForm.classList.remove('ad-form--disabled');
-  setElementsDisabled(adFormElements, false);
+  adForm.classList.add('ad-form--disabled');
+  setElementsDisabled(adFormElements, true);
 };
 
 export { setFormActive, setFormInactive };

@@ -1,3 +1,5 @@
+import { Title, MAX_PRICE_PER_NIGHT, roomsCapacity, minPrice } from './const.js';
+
 const adForm = document.querySelector('.ad-form');
 const adTitle = adForm.querySelector('#title');
 const adPrice = document.querySelector('#price');
@@ -6,10 +8,6 @@ const roomNumber = document.querySelector('#room_number');
 const capacity = document.querySelector('#capacity');
 const timeIn = document.querySelector('#timein');
 const timeOut = document.querySelector('#timeout');
-
-const MIN_LENGTH_TITLE = 30;
-const MAX_LENGTH_TITLE = 100;
-const MAX_PRICE_PER_NIGHT = 100000;
 
 const pristine = new Pristine(adForm, {
   classTo: 'ad-form__element',
@@ -21,24 +19,16 @@ const pristine = new Pristine(adForm, {
 });
 
 //Валидация заголовка объявления
-const validateAdTitle = (value) => value.length >= MIN_LENGTH_TITLE && value.length <= MAX_LENGTH_TITLE;
+const validateAdTitle = (value) => value.length >= Title.MIN && value.length <= Title.MAX;
 
 pristine.addValidator(
   adTitle,
   validateAdTitle,
-  `От ${MIN_LENGTH_TITLE} до ${MAX_LENGTH_TITLE} символов`, 2, true
+  `От ${Title.MIN} до ${Title.MAX} символов`, 2, true
 );
 
 
 //Валидация цены за ночь и типа жилья
-const minPrice = {
-  bungalow: 0,
-  flat: 1000,
-  hotel: 3000,
-  house: 5000,
-  palace: 10000,
-};
-
 const validatePrice = (value) => {
   const unit = document.querySelector('#type');
   return value >= minPrice[unit.value] && value <= MAX_PRICE_PER_NIGHT;
@@ -71,13 +61,6 @@ adType.addEventListener('change', () => {
 
 
 //Валидация количества комнат и гостей
-const roomsCapacity = {
-  '1': ['1'],
-  '2': ['2', '1'],
-  '3': ['3', '2', '1'],
-  '100': ['0'],
-};
-
 const validateCapacity = () => roomsCapacity[roomNumber.value].includes(capacity.value);
 
 const getCapacityErrorMessage = () => 'Выберите другое кол-во гостей или комнат';

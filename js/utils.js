@@ -37,4 +37,11 @@ const setElementsDisabled = (elements, isDisabled) => {
   });
 };
 
-export { generateRandomInteger, generateRandomArrayElement, generateRandomNumber, generatePhotoId, createRandomArray, setElementsDisabled };
+const getLocationToString = (object, number) => {
+  let {lat, lng} = object;
+  lat = Number(lat.toFixed(number));
+  lng = Number(lng.toFixed(number));
+  return `${lat}, ${lng}`;
+};
+
+export { generateRandomInteger, generateRandomArrayElement, generateRandomNumber, generatePhotoId, createRandomArray, setElementsDisabled, getLocationToString };

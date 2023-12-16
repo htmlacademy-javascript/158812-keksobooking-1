@@ -27,7 +27,6 @@ pristine.addValidator(
   `От ${Title.MIN} до ${Title.MAX} символов`, 2, true
 );
 
-
 //Валидация цены за ночь и типа жилья
 const validatePrice = (value) => {
   const unit = document.querySelector('#type');
@@ -59,7 +58,6 @@ adType.addEventListener('change', () => {
   onAdTypeChange();
 });
 
-
 //Валидация количества комнат и гостей
 const validateCapacity = () => roomsCapacity[roomNumber.value].includes(capacity.value);
 
@@ -75,7 +73,6 @@ pristine.addValidator(
   getCapacityErrorMessage
 );
 
-
 //Валидация времени заезда и выезда
 const setEqualSelectValues = (one, two) => {
   two.value = one.value;
@@ -89,15 +86,4 @@ timeOut.addEventListener('change', () => {
   setEqualSelectValues(timeOut, timeIn);
 });
 
-adForm.addEventListener('submit', (evt) => {
-  const isValid = pristine.validate();
-  if (isValid) {
-    evt.preventDefault();
-    //console.log('Можно отправлять');
-  } else {
-    evt.preventDefault();
-    //console.log('Форма невалидна');
-  }
-});
-
-export { pristine, adPrice, adType };
+export { pristine, adPrice, adType, adForm };

@@ -61,4 +61,6 @@ const showAlert = (message) => {
   document.body.append(alertContainer);
 };
 
-export { generateRandomInteger, generateRandomArrayElement, generateRandomNumber, generatePhotoId, createRandomArray, setElementsDisabled, getLocationToString, showAlert };
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export { generateRandomInteger, generateRandomArrayElement, generateRandomNumber, generatePhotoId, createRandomArray, setElementsDisabled, getLocationToString, showAlert, isEscapeKey };

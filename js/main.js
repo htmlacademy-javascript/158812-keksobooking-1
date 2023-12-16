@@ -6,6 +6,7 @@ import './slider.js';
 import { getData } from './api.js';
 import { showAlert } from './utils.js';
 import { SIMILAR_OFFERS_COUNT } from './const.js';
+import { setUserFormSubmit } from './form-send.js';
 
 setFormInactive();
 setFiltersInactive();
@@ -20,3 +21,5 @@ getData()
       showAlert(err.message);
     }
   );
+
+setUserFormSubmit();

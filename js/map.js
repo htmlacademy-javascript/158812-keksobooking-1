@@ -76,4 +76,10 @@ const initMap = () => {
     .setView(mainPoint, MAP_START_ZOOM);
 };
 
-export { renderMarkers, initMap };
+const resetMainPin = () => {
+  mainPinMarker.setLatLng(mainPoint);
+  map.setView(mainPoint, MAP_START_ZOOM);
+  map.closePopup();
+};
+
+export { renderMarkers, initMap, resetMainPin, mainPinLocation };

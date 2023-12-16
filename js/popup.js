@@ -24,12 +24,6 @@ const checkAvailableData = (data, element) => {
   }
 };
 
-const checkAvailableDataArray = (data, element) => {
-  if (data.length === 0) {
-    element.remove();
-  }
-};
-
 const similarListElement = document.querySelector('#map-canvas');
 
 const similarOfferTemplate = document.querySelector('#card')
@@ -62,8 +56,13 @@ const createPopup = (props) => {
   offerDescription.textContent = offer.description;
   authorAvatar.src = author.avatar;
 
-  createPhotoElements(offerPhotos, offer.photos);
-  createFeatureElements(featuresList, offer.features);
+  if (offer.photos) {
+    createPhotoElements(offerPhotos, offer.photos);
+  }
+
+  if (offer.features) {
+    createFeatureElements(featuresList, offer.features);
+  }
 
   checkAvailableData(offer.title, offerTitle);
   checkAvailableData(offer.address, offerAddress);
@@ -73,8 +72,6 @@ const createPopup = (props) => {
   checkAvailableData(offer.checkin, offerTextTime);
   checkAvailableData(offer.description, offerDescription);
   checkAvailableData(author.avatar, authorAvatar);
-  checkAvailableDataArray(offer.features, offerFeatures);
-  checkAvailableDataArray(offer.photos, offerPhotos);
 
   return offerElement;
 };

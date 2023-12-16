@@ -44,4 +44,21 @@ const getLocationToString = (object, number) => {
   return `${lat}, ${lng}`;
 };
 
-export { generateRandomInteger, generateRandomArrayElement, generateRandomNumber, generatePhotoId, createRandomArray, setElementsDisabled, getLocationToString };
+const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = 100;
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.right = 0;
+  alertContainer.style.top = 0;
+  alertContainer.style.padding = '20px';
+  alertContainer.style.fontSize = '16px';
+  alertContainer.style.color = 'white';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.backgroundColor = 'red';
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+};
+
+export { generateRandomInteger, generateRandomArrayElement, generateRandomNumber, generatePhotoId, createRandomArray, setElementsDisabled, getLocationToString, showAlert };

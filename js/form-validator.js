@@ -89,14 +89,13 @@ timeOut.addEventListener('change', () => {
   setEqualSelectValues(timeOut, timeIn);
 });
 
-
 adForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-
   const isValid = pristine.validate();
   if (isValid) {
+    evt.preventDefault();
     //console.log('Можно отправлять');
   } else {
+    evt.preventDefault();
     //console.log('Форма невалидна');
   }
 });

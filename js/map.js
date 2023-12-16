@@ -1,5 +1,5 @@
 import { generateOffers } from './data.js';
-import { SIMILAR_OFFERS_COUNT, MAP_START_ZOOM, MAIN_PIN } from './const.js';
+import { SIMILAR_OFFERS_COUNT, MAP_START_ZOOM, mainPoint } from './const.js';
 import { createPopup } from './popup.js';
 import { setFormActive } from './form-switcher.js';
 import { setFiltersActive } from './filter-switcher.js';
@@ -22,7 +22,7 @@ const similarPinIcon = L.icon({
 //добавляет на карту специальную, «главную», метку
 const loadMainPin = (map) => {
   const mainPinMarker = L.marker(
-    MAIN_PIN,
+    mainPoint,
     {
       draggable: true,
       icon: mainPinIcon,
@@ -68,7 +68,7 @@ const initMap = () => {
       setFormActive();
       setFiltersActive();
     })
-    .setView(MAIN_PIN, MAP_START_ZOOM);
+    .setView(mainPoint, MAP_START_ZOOM);
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     {

@@ -1,23 +1,23 @@
-import { adType, adPrice } from'./form-validator.js';
-import { MAX_PRICE_PER_NIGHT, minPrice } from './const.js';
+import { adPrice } from'./form-validator.js';
+import { MAX_PRICE_PER_NIGHT } from './const.js';
 
 const sliderElement = document.querySelector('.ad-form__slider');
 const resetButton = document.querySelector('.ad-form__reset');
 
-const sliderPriceInit = (state) => {
+const sliderPriceInit = (cb) => {
   noUiSlider.create(sliderElement, {
     range: {
-      min: minPrice[adType.value],
+      min: 0,
       max: MAX_PRICE_PER_NIGHT,
     },
-    start: minPrice[adType.value],
+    start: 0,
     connect: 'lower',
   });
 
   sliderElement.noUiSlider.on('slide', () => {
     const sliderValue = sliderElement.noUiSlider.get();
     adPrice.value = parseInt(sliderValue, 10);
-    setTimeout(state, 100);
+    setTimeout(cb, 100);
   });
 
   adPrice.addEventListener('input', () => {

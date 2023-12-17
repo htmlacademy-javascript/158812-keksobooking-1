@@ -3,6 +3,9 @@ import { isEscapeKey } from './utils.js';
 const body = document.querySelector('body');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const successElement = successTemplate.cloneNode(true);
+const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+const errorElement = errorTemplate.cloneNode(true);
+const closeButton = errorElement.querySelector('.error__button');
 
 const onMessageSuccessEscapeDown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -28,10 +31,6 @@ function closeSuccessSendMessage () {
   body.removeEventListener('keydown', onMessageSuccessEscapeDown);
   successElement.removeEventListener('mousedown', onMouseSuccessClickDown);
 }
-
-const errorTemplate = document.querySelector('#error').content.querySelector('.error');
-const errorElement = errorTemplate.cloneNode(true);
-const closeButton = errorElement.querySelector('.error__button');
 
 const onMessageErrorEscapeDown = (evt) => {
   if (isEscapeKey(evt)) {

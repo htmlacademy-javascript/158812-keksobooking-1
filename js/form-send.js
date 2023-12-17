@@ -21,10 +21,11 @@ const resetForm = (evt) => {
   resetMainPin();
 };
 
-resetFormButton.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  resetForm();
-});
+const onClickResetButton = (evt) => {
+  resetForm(evt);
+};
+
+resetFormButton.addEventListener('click', onClickResetButton);
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;

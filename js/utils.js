@@ -1,3 +1,5 @@
+import { TIMEOUT_DELAY } from './const.js';
+
 //получить целое случайное число из диапазона
 const generateRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
@@ -63,7 +65,7 @@ const showAlert = (message) => {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-const debounce = (callback, timeoutDelay = 500) => {
+const debounce = (callback, timeoutDelay = TIMEOUT_DELAY) => {
   let timeoutId;
 
   return (...rest) => {

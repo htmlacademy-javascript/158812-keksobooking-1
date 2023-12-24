@@ -58,10 +58,14 @@ const createPopup = (props) => {
 
   if (offer.photos) {
     createPhotoElements(offerPhotos, offer.photos);
+  } else {
+    offerPhotos.remove();
   }
 
   if (offer.features) {
     createFeatureElements(featuresList, offer.features);
+  } else {
+    offerFeatures.remove();
   }
 
   checkAvailableData(offer.title, offerTitle);

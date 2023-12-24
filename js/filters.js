@@ -1,3 +1,7 @@
+import { debounce } from './utils.js';
+import { TIMEOUT_DELAY, SIMILAR_OFFERS_COUNT } from './const.js';
+import { clearMarkers, renderMarkers } from './map.js';
+
 const DEFAULT_VALUE = 'any';
 
 const priceRanges = {
@@ -11,36 +15,20 @@ const priceRanges = {
   },
   high: {
     min: 50001,
-    max: 100000,
+    max: Infinity,
   }
 };
 
+const mapFilters = document.querySelector('.map__filters');
 const typeOfHousing = document.querySelector('[name="housing-type"]');
 const priceOfHousing = document.querySelector('[name="housing-price"]');
 const roomsCountOfHousing = document.querySelector('[name="housing-rooms"]');
 const guestsCountOfHousing = document.querySelector('[name="housing-guests"]');
-const featuresInputs = document.querySelectorAll('[name="features"]');
+const featuresInputs = document.querySelectorAll('input[name="features"]:checked');
 
-const getFeatureRank = ({ offer }) => {
+const checkByType = (offer) => typeOfHousing.value === offer.type || typeOfHousing.value === DEFAULT_VALUE;
 
-  let rank = 0;
-
-  if (offer.features) {
-    offer.features.forEach((feature) => {
-      featuresInputs.forEach((input) => {
-        if (feature === input.value && input.checked) {
-          rank += 1;
-        }
-      });
-    });
-  }
-
-  return rank;
-};
-
-const checkByType = ({offer}) => typeOfHousing.value === DEFAULT_VALUE ? true : offer.type === typeOfHousing.value;
-
-const checkByPrice = ({offer}) => {
+const checkByPrice = (offer) => {
   const priceOption = priceOfHousing.value;
 
   if (priceOption === DEFAULT_VALUE) {
@@ -49,28 +37,45 @@ const checkByPrice = ({offer}) => {
 
   const {min, max} = priceRanges[priceOption];
   return offer.price >= min && offer.price <= max;
-
 };
 
-const checkByRoomsCount = ({offer}) => {
+const checkByRoomsCount = (offer) => {
   if (roomsCountOfHousing.value === DEFAULT_VALUE) {
     return true;
   }
   return offer.rooms === +roomsCountOfHousing.value;
 };
 
-const checkByGuestsCount = ({offer}) => {
+const checkByGuestsCount = (offer) => {
   if (guestsCountOfHousing.value === DEFAULT_VALUE) {
     return true;
   }
   return offer.guests === +guestsCountOfHousing.value;
 };
 
-const checkByFeatures = (offerA, offerB) => {
-  const rankA = getFeatureRank(offerA);
-  const rankB = getFeatureRank(offerB);
+const getSelectedCheckbox = () => Array.from(featuresInputs).map((featuresInput) => featuresInput.value);
 
-  return rankB - rankA;
+const checkByFeatures = (offer) => {
+  const arrayFeatures = offer.features;
+  const selectedFeatures = getSelectedCheckbox();
+  if (selectedFeatures.length === 0) {
+    return true;
+  }
+  if (arrayFeatures) {
+    return selectedFeatures.every((feature) => arrayFeatures.includes(feature));
+  }
+  return false;
 };
 
-export { checkByType, checkByPrice, checkByRoomsCount, checkByGuestsCount, checkByFeatures };
+const setFilteredOffers = (offers) => offers.filter(({offer}) => checkByType(offer) && checkByPrice(offer) && checkByRoomsCount(offer) && checkByGuestsCount(offer) && checkByFeatures(offer)).slice(0, SIMILAR_OFFERS_COUNT);
+
+const getFilteredOffers = (data) => {
+  mapFilters.addEventListener('change', debounce(() => {
+    clearMarkers();
+
+    const filteredArray = setFilteredOffers(data);
+    renderMarkers(filteredArray);
+  }, TIMEOUT_DELAY));
+};
+
+export { getFilteredOffers };

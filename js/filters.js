@@ -24,7 +24,7 @@ const typeOfHousing = document.querySelector('[name="housing-type"]');
 const priceOfHousing = document.querySelector('[name="housing-price"]');
 const roomsCountOfHousing = document.querySelector('[name="housing-rooms"]');
 const guestsCountOfHousing = document.querySelector('[name="housing-guests"]');
-const featuresInputs = document.querySelectorAll('input[name="features"]:checked');
+const featuresInputs = document.querySelectorAll('[name=features]');
 
 const checkByType = (offer) => typeOfHousing.value === offer.type || typeOfHousing.value === DEFAULT_VALUE;
 
@@ -53,21 +53,20 @@ const checkByGuestsCount = (offer) => {
   return offer.guests === +guestsCountOfHousing.value;
 };
 
-const getSelectedCheckbox = () => Array.from(featuresInputs).map((featuresInput) => featuresInput.value);
-
-const checkByFeatures = (offer) => {
-  const arrayFeatures = offer.features;
-  const selectedFeatures = getSelectedCheckbox();
-  if (selectedFeatures.length === 0) {
+const checkByFeatures = ({features}, checkedFeatures) => {
+  if (checkedFeatures.length === 0) {
     return true;
   }
-  if (arrayFeatures) {
-    return selectedFeatures.every((feature) => arrayFeatures.includes(feature));
-  }
-  return false;
+  return features && checkedFeatures.every((feature) => features.includes(feature.value));
 };
 
-const setFilteredOffers = (offers) => offers.filter(({offer}) => checkByType(offer) && checkByPrice(offer) && checkByRoomsCount(offer) && checkByGuestsCount(offer) && checkByFeatures(offer)).slice(0, SIMILAR_OFFERS_COUNT);
+const setFilteredOffers = (offers) => {
+  const checkedFeatures = [...featuresInputs].filter((featuresInput) => featuresInput.checked);
+
+  return offers.filter(({offer}) => checkByType(offer) && checkByPrice(offer) && checkByRoomsCount(offer) && checkByGuestsCount(offer) &&
+    checkByFeatures(offer, checkedFeatures)
+  ).slice(0, SIMILAR_OFFERS_COUNT);
+};
 
 const getFilteredOffers = (data) => {
   mapFilters.addEventListener('change', debounce(() => {

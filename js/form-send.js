@@ -3,7 +3,8 @@ import { openSuccessSendMessage, openErrorSendMessage } from './form-messages.js
 import { sendData } from './api.js';
 import { resetMainPin, mainPinLocation } from './map.js';
 import { getLocationToString } from './utils.js';
-import { mainPoint } from './const.js';
+import { mainPoint, NUMBER_AFTER_POINT } from './const.js';
+import { clearAllLoadPhoto } from './load-images.js';
 
 const SubmitButtonText = {
   IDLE: 'Сохранить',
@@ -16,15 +17,17 @@ const submitButton = document.querySelector('.ad-form__submit');
 const resetForm = (evt) => {
   evt.preventDefault();
   pristine.reset();
+  clearAllLoadPhoto();
   adForm.reset();
-  mainPinLocation.value = getLocationToString(mainPoint, 5);
+  mainPinLocation.value = getLocationToString(mainPoint, NUMBER_AFTER_POINT);
   resetMainPin();
 };
 
-resetFormButton.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  resetForm();
-});
+const onClickResetButton = (evt) => {
+  resetForm(evt);
+};
+
+resetFormButton.addEventListener('click', onClickResetButton);
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;

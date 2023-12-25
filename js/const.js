@@ -1,20 +1,13 @@
 const SIMILAR_OFFERS_COUNT = 10;
 const MAX_PRICE_PER_NIGHT = 100000;
 const MAP_START_ZOOM = 12;
+const NUMBER_AFTER_POINT = 5;
+const TIMEOUT_DELAY = 500;
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 const mainPoint = {
   lat: 35.68442,
   lng: 139.75425
 };
-const TITLES = ['Квартира', 'Бунгало', 'Отель'];
-const DESCRIPTIONS = ['Описание помещения 01', 'Описание помещения 02', 'Описание помещения 03'];
-const PHOTOS = [
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
-];
-const TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
-const TIMES = ['12:00', '13:00', '14:00'];
-const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 const offerTypeToTitle = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
@@ -40,4 +33,4 @@ const minPrice = {
   palace: 10000,
 };
 
-export { SIMILAR_OFFERS_COUNT, TITLES, DESCRIPTIONS, PHOTOS, TYPES, TIMES, FEATURES, offerTypeToTitle, Title, MAX_PRICE_PER_NIGHT, roomsCapacity, minPrice, MAP_START_ZOOM, mainPoint };
+export { SIMILAR_OFFERS_COUNT, offerTypeToTitle, Title, MAX_PRICE_PER_NIGHT, roomsCapacity, minPrice, MAP_START_ZOOM, mainPoint, NUMBER_AFTER_POINT, TIMEOUT_DELAY, FILE_TYPES };

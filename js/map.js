@@ -1,4 +1,4 @@
-import { MAP_START_ZOOM, mainPoint } from './const.js';
+import { MAP_START_ZOOM, mainPoint, NUMBER_AFTER_POINT } from './const.js';
 import { createPopup } from './popup.js';
 import { setFormActive } from './form-switcher.js';
 import { setFiltersActive } from './filter-switcher.js';
@@ -20,13 +20,6 @@ const similarPinIcon = L.icon({
 
 const map = L.map('map-canvas');
 
-L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  },
-).addTo(map);
-
 //добавляет на карту специальную, «главную», метку
 const mainPinMarker = L.marker(
   mainPoint,
@@ -36,10 +29,10 @@ const mainPinMarker = L.marker(
   },
 );
 mainPinMarker.addTo(map);
-mainPinLocation.value = getLocationToString(mainPinMarker.getLatLng(), 5);
+mainPinLocation.value = getLocationToString(mainPinMarker.getLatLng(), NUMBER_AFTER_POINT);
 
 mainPinMarker.on('moveend', (evt) => {
-  mainPinLocation.value = getLocationToString(evt.target.getLatLng(), 5);
+  mainPinLocation.value = getLocationToString(evt.target.getLatLng(), NUMBER_AFTER_POINT);
 });
 
 //добавляет на карту метки объявлений, «обычные»
@@ -74,6 +67,13 @@ const initMap = () => {
       setFiltersActive();
     })
     .setView(mainPoint, MAP_START_ZOOM);
+
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    },
+  ).addTo(map);
 };
 
 const resetMainPin = () => {
@@ -82,4 +82,6 @@ const resetMainPin = () => {
   map.closePopup();
 };
 
-export { renderMarkers, initMap, resetMainPin, mainPinLocation };
+const clearMarkers = () => markerGroup.clearLayers();
+
+export { initMap, resetMainPin, mainPinLocation, markerGroup, renderMarkers, clearMarkers };

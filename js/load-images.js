@@ -27,9 +27,9 @@ photoChooser.addEventListener('change', () => {
   }
 });
 
-const clearAllLoadPhoto = () => {
+const clearAllLoadPhotos = () => {
   avatarPreview.src = 'img/muffin-grey.svg';
   photoPreview.innerHTML = '';
 };
 
-export { clearAllLoadPhoto };
+export { clearAllLoadPhotos };

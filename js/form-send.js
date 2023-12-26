@@ -4,7 +4,7 @@ import { sendData } from './api.js';
 import { resetMainPin, mainPinLocation } from './map.js';
 import { getLocationToString } from './utils.js';
 import { mainPoint, NUMBER_AFTER_POINT } from './const.js';
-import { clearAllLoadPhoto } from './load-images.js';
+import { clearAllLoadPhotos } from './load-images.js';
 
 const SubmitButtonText = {
   IDLE: 'Сохранить',
@@ -17,17 +17,17 @@ const submitButton = document.querySelector('.ad-form__submit');
 const resetForm = (evt) => {
   evt.preventDefault();
   pristine.reset();
-  clearAllLoadPhoto();
+  clearAllLoadPhotos();
   adForm.reset();
   mainPinLocation.value = getLocationToString(mainPoint, NUMBER_AFTER_POINT);
   resetMainPin();
 };
 
-const onClickResetButton = (evt) => {
+const onResetButtonClick = (evt) => {
   resetForm(evt);
 };
 
-resetFormButton.addEventListener('click', onClickResetButton);
+resetFormButton.addEventListener('click', onResetButtonClick);
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;

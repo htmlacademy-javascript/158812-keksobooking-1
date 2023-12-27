@@ -1,10 +1,11 @@
-import { pristine, adForm } from'./form-validator.js';
+import { pristine, formElement } from'./form-validator.js';
 import { openSuccessSendMessage, openErrorSendMessage } from './form-messages.js';
 import { sendData } from './api.js';
 import { resetMainPin, mainPinLocation } from './map.js';
 import { getLocationToString } from './utils.js';
 import { mainPoint, NUMBER_AFTER_POINT } from './const.js';
 import { clearAllLoadPhotos } from './load-images.js';
+import { onResetSliderPriceClick } from './slider.js';
 
 const SubmitButtonText = {
   IDLE: 'Сохранить',
@@ -18,9 +19,10 @@ const resetForm = (evt) => {
   evt.preventDefault();
   pristine.reset();
   clearAllLoadPhotos();
-  adForm.reset();
+  formElement.reset();
   mainPinLocation.value = getLocationToString(mainPoint, NUMBER_AFTER_POINT);
   resetMainPin();
+  onResetSliderPriceClick();
 };
 
 const onResetButtonClick = (evt) => {
@@ -40,7 +42,7 @@ const unblockSubmitButton = () => {
 };
 
 const setUserFormSubmit = () => {
-  adForm.addEventListener('submit', (evt) => {
+  formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
 

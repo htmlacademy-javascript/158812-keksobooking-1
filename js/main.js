@@ -1,4 +1,4 @@
-import { setFiltersInactive } from './filter-switcher.js';
+import { setFiltersInactive, setFiltersActive } from './filter-switcher.js';
 import { setFormInactive } from './form-switcher.js';
 import './form-validator.js';
 import { initMap, renderMarkers } from './map.js';
@@ -15,6 +15,7 @@ setTimeout(initMap, TIMEOUT_DELAY);
 
 getData()
   .then((offers) => {
+    setFiltersActive();
     initFilters(offers, (filteredOffers) => renderMarkers(filteredOffers));
   })
   .catch((err) => {

@@ -1,21 +1,21 @@
 import { setElementsDisabled } from './utils.js';
 import { sliderPriceInit } from './slider.js';
-import { pristine, adPrice } from './form-validator.js';
+import { pristine, priceElement } from './form-validator.js';
 
-const adForm = document.querySelector('.ad-form');
-const adFormElements = adForm.querySelectorAll('select, fieldset');
+const formElement = document.querySelector('.ad-form');
+const formElements = formElement.querySelectorAll('select, fieldset');
 
 const setFormActive = () => {
-  adForm.classList.remove('ad-form--disabled');
-  setElementsDisabled(adFormElements, false);
+  formElement.classList.remove('ad-form--disabled');
+  setElementsDisabled(formElements, false);
 
-  const validate = () => pristine.validate(adPrice);
+  const validate = () => pristine.validate(priceElement);
   sliderPriceInit(validate);
 };
 
 const setFormInactive = () => {
-  adForm.classList.add('ad-form--disabled');
-  setElementsDisabled(adFormElements, true);
+  formElement.classList.add('ad-form--disabled');
+  setElementsDisabled(formElements, true);
 };
 
 export { setFormActive, setFormInactive };

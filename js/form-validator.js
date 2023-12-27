@@ -1,15 +1,15 @@
 import { Title, MAX_PRICE_PER_NIGHT, roomsCapacity, minPrice } from './const.js';
 
-const adForm = document.querySelector('.ad-form');
-const adTitle = adForm.querySelector('#title');
-const adPrice = document.querySelector('#price');
-const adType = document.querySelector('#type');
-const roomNumber = document.querySelector('#room_number');
-const capacity = document.querySelector('#capacity');
-const timeIn = document.querySelector('#timein');
-const timeOut = document.querySelector('#timeout');
+const formElement = document.querySelector('.ad-form');
+const titleElement = formElement.querySelector('#title');
+const priceElement = document.querySelector('#price');
+const typeElement = document.querySelector('#type');
+const roomNumberElement = document.querySelector('#room_number');
+const capacityElement = document.querySelector('#capacity');
+const timeInElement = document.querySelector('#timein');
+const timeOutElement = document.querySelector('#timeout');
 
-const pristine = new Pristine(adForm, {
+const pristine = new Pristine(formElement, {
   classTo: 'ad-form__element',
   errorClass: 'ad-form__element--invalid',
   successClass: 'ad-form__element--valid',
@@ -22,7 +22,7 @@ const pristine = new Pristine(adForm, {
 const validateAdTitle = (value) => value.length >= Title.MIN && value.length <= Title.MAX;
 
 pristine.addValidator(
-  adTitle,
+  titleElement,
   validateAdTitle,
   `От ${Title.MIN} до ${Title.MAX} символов`, 2, true
 );
@@ -39,7 +39,7 @@ const getTypeErrorMessage = () => {
 };
 
 pristine.addValidator(
-  adPrice,
+  priceElement,
   validatePrice,
   getTypeErrorMessage
 );
@@ -50,25 +50,25 @@ const setMinPrice = (type, price) => {
 };
 
 const onAdTypeChange = () => {
-  setMinPrice(adType, adPrice);
-  pristine.validate(adPrice);
+  setMinPrice(typeElement, priceElement);
+  pristine.validate(priceElement);
 };
 
-adType.addEventListener('change', () => {
+typeElement.addEventListener('change', () => {
   onAdTypeChange();
 });
 
 //Валидация количества комнат и гостей
-const validateCapacity = () => roomsCapacity[roomNumber.value].includes(capacity.value);
+const validateCapacity = () => roomsCapacity[roomNumberElement.value].includes(capacityElement.value);
 
 const getCapacityErrorMessage = () => 'Выберите другое кол-во гостей или комнат';
 
-roomNumber.addEventListener('change', () => {
-  pristine.validate(capacity);
+roomNumberElement.addEventListener('change', () => {
+  pristine.validate(capacityElement);
 });
 
 pristine.addValidator(
-  capacity,
+  capacityElement,
   validateCapacity,
   getCapacityErrorMessage
 );
@@ -78,12 +78,12 @@ const setEqualSelectValues = (one, two) => {
   two.value = one.value;
 };
 
-timeIn.addEventListener('change', () => {
-  setEqualSelectValues(timeIn, timeOut);
+timeInElement.addEventListener('change', () => {
+  setEqualSelectValues(timeInElement, timeOutElement);
 });
 
-timeOut.addEventListener('change', () => {
-  setEqualSelectValues(timeOut, timeIn);
+timeOutElement.addEventListener('change', () => {
+  setEqualSelectValues(timeOutElement, timeInElement);
 });
 
-export { pristine, adPrice, adType, adForm };
+export { pristine, priceElement, formElement };

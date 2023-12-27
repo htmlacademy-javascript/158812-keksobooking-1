@@ -1,8 +1,7 @@
-import { adPrice } from'./form-validator.js';
+import { priceElement } from'./form-validator.js';
 import { MAX_PRICE_PER_NIGHT } from './const.js';
 
 const sliderElement = document.querySelector('.ad-form__slider');
-const resetButton = document.querySelector('.ad-form__reset');
 
 const sliderPriceInit = (cb) => {
   noUiSlider.create(sliderElement, {
@@ -16,17 +15,17 @@ const sliderPriceInit = (cb) => {
 
   sliderElement.noUiSlider.on('slide', () => {
     const sliderValue = sliderElement.noUiSlider.get();
-    adPrice.value = parseInt(sliderValue, 10);
+    priceElement.value = parseInt(sliderValue, 10);
     setTimeout(cb, 100);
   });
 
-  adPrice.addEventListener('input', () => {
-    sliderElement.noUiSlider.set(adPrice.value);
+  priceElement.addEventListener('input', () => {
+    sliderElement.noUiSlider.set(priceElement.value);
   });
 };
 
-resetButton.addEventListener('click', () => {
+const onResetSliderPriceClick = () => {
   sliderElement.noUiSlider.reset();
-});
+};
 
-export { sliderPriceInit };
+export { sliderPriceInit, onResetSliderPriceClick };

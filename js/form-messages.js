@@ -10,11 +10,13 @@ const closeButton = errorElement.querySelector('.error__button');
 const onMessageSuccessEscapeDown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
+    // eslint-disable-next-line no-use-before-define
     closeSuccessSendMessage();
   }
 };
 
 const onMouseSuccessClickDown = () => {
+  // eslint-disable-next-line no-use-before-define
   closeSuccessSendMessage();
 };
 
@@ -25,21 +27,23 @@ const openSuccessSendMessage = () => {
   successElement.addEventListener('click', onMouseSuccessClickDown);
 };
 
-function closeSuccessSendMessage () {
+const closeSuccessSendMessage = () => {
   body.removeChild(successElement);
 
   body.removeEventListener('keydown', onMessageSuccessEscapeDown);
   successElement.removeEventListener('mousedown', onMouseSuccessClickDown);
-}
+};
 
 const onMessageErrorEscapeDown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
+    // eslint-disable-next-line no-use-before-define
     closeErrorSendMessage();
   }
 };
 
 const onMouseErrorClickDown = () => {
+  // eslint-disable-next-line no-use-before-define
   closeErrorSendMessage();
 };
 
@@ -50,11 +54,11 @@ const openErrorSendMessage = () => {
   body.addEventListener('keydown', onMessageErrorEscapeDown);
 };
 
-function closeErrorSendMessage () {
+const closeErrorSendMessage = () => {
   body.removeChild(errorElement);
 
   body.removeEventListener('keydown', onMessageErrorEscapeDown);
   errorElement.removeEventListener('mousedown', onMouseErrorClickDown);
-}
+};
 
 export { openSuccessSendMessage, openErrorSendMessage };

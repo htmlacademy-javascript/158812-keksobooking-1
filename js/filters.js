@@ -1,8 +1,6 @@
 import { debounce } from './utils.js';
-import { SIMILAR_OFFERS_COUNT } from './const.js';
+import { SIMILAR_OFFERS_COUNT, DEFAULT_VALUE } from './const.js';
 import { clearMarkers } from './map.js';
-
-const DEFAULT_VALUE = 'any';
 
 const priceRanges = {
   low: {
@@ -19,12 +17,12 @@ const priceRanges = {
   }
 };
 
-const mapFilters = document.querySelector('.map__filters');
+const filtersElement = document.querySelector('.map__filters');
 const typeOfHousing = document.querySelector('[name="housing-type"]');
 const priceOfHousing = document.querySelector('[name="housing-price"]');
 const roomsCountOfHousing = document.querySelector('[name="housing-rooms"]');
 const guestsCountOfHousing = document.querySelector('[name="housing-guests"]');
-const featuresInputs = mapFilters.querySelectorAll('[name=features]');
+const featuresElements = filtersElement.querySelectorAll('[name=features]');
 
 const checkByType = ({offer}) => typeOfHousing.value === offer.type || typeOfHousing.value === DEFAULT_VALUE;
 
@@ -72,7 +70,7 @@ const getFilteredOffers = (offers, isInit = false) => {
   const filteredOffers = [];
 
   const checkedFeatures = Array
-    .from(featuresInputs)
+    .from(featuresElements)
     .filter((feature) => feature.checked === true)
     .map((feature) => feature.value);
 
@@ -98,11 +96,9 @@ const getFilteredOffers = (offers, isInit = false) => {
 
 const initFilters = (offers, cb) => {
   cb(getFilteredOffers(offers));
-  mapFilters.addEventListener('change', debounce(() => cb(getFilteredOffers(offers))));
+  filtersElement.addEventListener('change', debounce(() => cb(getFilteredOffers(offers))));
 
-  mapFilters.addEventListener('reset', () => {
-    cb(getFilteredOffers(offers, true));
-  });
+  filtersElement.addEventListener('reset', () => cb(getFilteredOffers(offers, true)));
 };
 
 export { initFilters };

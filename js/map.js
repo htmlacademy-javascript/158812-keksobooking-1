@@ -1,7 +1,6 @@
 import { MAP_START_ZOOM, mainPoint, NUMBER_AFTER_POINT } from './const.js';
 import { createPopup } from './popup.js';
 import { setFormActive } from './form-switcher.js';
-import { setFiltersActive } from './filter-switcher.js';
 import { getLocationToString } from './utils.js';
 
 const mainPinLocation = document.querySelector('#address');
@@ -19,8 +18,8 @@ const similarPinIcon = L.icon({
 });
 
 const map = L.map('map-canvas');
+const markerGroup = L.layerGroup().addTo(map);
 
-//добавляет на карту специальную, «главную», метку
 const mainPinMarker = L.marker(
   mainPoint,
   {
@@ -28,15 +27,6 @@ const mainPinMarker = L.marker(
     icon: mainPinIcon,
   },
 );
-mainPinMarker.addTo(map);
-mainPinLocation.value = getLocationToString(mainPinMarker.getLatLng(), NUMBER_AFTER_POINT);
-
-mainPinMarker.on('moveend', (evt) => {
-  mainPinLocation.value = getLocationToString(evt.target.getLatLng(), NUMBER_AFTER_POINT);
-});
-
-//добавляет на карту метки объявлений, «обычные»
-const markerGroup = L.layerGroup().addTo(map);
 
 const renderMarker = (object) => {
   const marker = L.marker(
@@ -59,14 +49,19 @@ const renderMarkers = (array) => {
   });
 };
 
-//инициализирует карту
 const initMap = () => {
   map
     .on('load', () => {
       setFormActive();
-      setFiltersActive();
     })
     .setView(mainPoint, MAP_START_ZOOM);
+
+  mainPinMarker.addTo(map);
+  mainPinLocation.value = getLocationToString(mainPinMarker.getLatLng(), NUMBER_AFTER_POINT);
+
+  mainPinMarker.on('moveend', (evt) => {
+    mainPinLocation.value = getLocationToString(evt.target.getLatLng(), NUMBER_AFTER_POINT);
+  });
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',

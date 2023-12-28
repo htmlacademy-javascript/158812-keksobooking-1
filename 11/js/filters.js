@@ -1,6 +1,7 @@
 import { debounce } from './utils.js';
-import { SIMILAR_OFFERS_COUNT, DEFAULT_VALUE } from './const.js';
-import { clearMarkers } from './map.js';
+import { SIMILAR_OFFERS_COUNT, DEFAULT_VALUE, TIMEOUT_DELAY } from './const.js';
+import { clearMarkers, renderMarkers } from './map.js';
+import { setFiltersActive } from './filter-switcher.js';
 
 const priceRanges = {
   low: {
@@ -18,16 +19,16 @@ const priceRanges = {
 };
 
 const filtersElement = document.querySelector('.map__filters');
-const typeOfHousing = document.querySelector('[name="housing-type"]');
-const priceOfHousing = document.querySelector('[name="housing-price"]');
-const roomsCountOfHousing = document.querySelector('[name="housing-rooms"]');
-const guestsCountOfHousing = document.querySelector('[name="housing-guests"]');
-const featuresElements = filtersElement.querySelectorAll('[name=features]');
+const typeFilterElement = filtersElement.querySelector('[name="housing-type"]');
+const priceFilterElement = filtersElement.querySelector('[name="housing-price"]');
+const roomsCountFilterElement = filtersElement.querySelector('[name="housing-rooms"]');
+const guestsCountFilterElement = filtersElement.querySelector('[name="housing-guests"]');
+const featuresFilterElements = filtersElement.querySelectorAll('[name=features]');
 
-const checkByType = ({offer}) => typeOfHousing.value === offer.type || typeOfHousing.value === DEFAULT_VALUE;
+const checkByType = ({offer}) => typeFilterElement.value === offer.type || typeFilterElement.value === DEFAULT_VALUE;
 
 const checkByPrice = ({offer}) => {
-  const priceOption = priceOfHousing.value;
+  const priceOption = priceFilterElement.value;
 
   if (priceOption === DEFAULT_VALUE) {
     return true;
@@ -38,17 +39,17 @@ const checkByPrice = ({offer}) => {
 };
 
 const checkByRoomsCount = ({offer}) => {
-  if (roomsCountOfHousing.value === DEFAULT_VALUE) {
+  if (roomsCountFilterElement.value === DEFAULT_VALUE) {
     return true;
   }
-  return offer.rooms === +roomsCountOfHousing.value;
+  return offer.rooms === +roomsCountFilterElement.value;
 };
 
 const checkByGuestsCount = ({offer}) => {
-  if (guestsCountOfHousing.value === DEFAULT_VALUE) {
+  if (guestsCountFilterElement.value === DEFAULT_VALUE) {
     return true;
   }
-  return offer.guests === +guestsCountOfHousing.value;
+  return offer.guests === +guestsCountFilterElement.value;
 };
 
 const checkByFeatures = ({offer}, checkedFeatures) => {
@@ -61,7 +62,7 @@ const checkByFeatures = ({offer}, checkedFeatures) => {
   return checkedFeatures.every((feature) => offer.features.includes(feature));
 };
 
-const getFilteredOffers = (offers, isInit = false) => {
+const setFilterOffers = (offers, isInit = false) => {
 
   if (isInit) {
     return offers.slice(0, SIMILAR_OFFERS_COUNT);
@@ -70,7 +71,7 @@ const getFilteredOffers = (offers, isInit = false) => {
   const filteredOffers = [];
 
   const checkedFeatures = Array
-    .from(featuresElements)
+    .from(featuresFilterElements)
     .filter((feature) => feature.checked === true)
     .map((feature) => feature.value);
 
@@ -94,11 +95,21 @@ const getFilteredOffers = (offers, isInit = false) => {
   return filteredOffers;
 };
 
-const initFilters = (offers, cb) => {
-  cb(getFilteredOffers(offers));
-  filtersElement.addEventListener('change', debounce(() => cb(getFilteredOffers(offers))));
+const getFilteredOffers = (offers) => {
+  const filteredOffers = setFilterOffers(offers);
+  renderMarkers(filteredOffers);
+};
 
-  filtersElement.addEventListener('reset', () => cb(getFilteredOffers(offers, true)));
+const initFilters = (offers) => {
+  setFiltersActive();
+
+  filtersElement.addEventListener('change', debounce(() => {
+    getFilteredOffers(offers);
+  }, TIMEOUT_DELAY));
+
+  filtersElement.addEventListener('reset', () => {
+    getFilteredOffers(offers);
+  });
 };
 
 export { initFilters };

@@ -12,34 +12,34 @@ const errorTemplate = document.querySelector('#error')
 
 const messageRemoveElement = () => successTemplate.remove() || errorTemplate.remove();
 
-const onEscapeKeyDown = (evt) => {
+const onMessageKeyDown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     bodyElement.classList.remove('modal-show');
     messageRemoveElement();
-    document.removeEventListener('keydown', onEscapeKeyDown);
+    document.removeEventListener('keydown', onMessageKeyDown);
   }
 };
 
 const closeMessage = () => {
   bodyElement.classList.remove('modal-show');
   messageRemoveElement();
-  document.removeEventListener('keydown', onEscapeKeyDown);
+  document.removeEventListener('keydown', onMessageKeyDown);
   document.removeEventListener('click', closeMessage);
 };
 
-const openSuccessSendMessage = () => {
+const openSuccessMessage = () => {
   bodyElement.append(successTemplate);
   bodyElement.classList.add('modal-show');
-  document.addEventListener('keydown', onEscapeKeyDown);
+  document.addEventListener('keydown', onMessageKeyDown);
   document.addEventListener('click', closeMessage);
 };
 
-const openErrorSendMessage = () => {
+const openErrorMessage = () => {
   bodyElement.append(errorTemplate);
   bodyElement.classList.add('modal-show');
-  document.addEventListener('keydown', onEscapeKeyDown);
+  document.addEventListener('keydown', onMessageKeyDown);
   errorTemplate.addEventListener('click', closeMessage);
 };
 
-export { openSuccessSendMessage, openErrorSendMessage };
+export { openSuccessMessage, openErrorMessage };

@@ -24,8 +24,8 @@ const sliderPriceInit = (cb) => {
   });
 };
 
-const onResetSliderPriceClick = () => {
+const resetSlider = () => {
   sliderElement.noUiSlider.reset();
 };
 
-export { sliderPriceInit, onResetSliderPriceClick };
+export { sliderPriceInit, resetSlider };

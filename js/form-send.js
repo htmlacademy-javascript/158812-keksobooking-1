@@ -6,6 +6,7 @@ import { getLocationToString } from './utils.js';
 import { mainPoint, NUMBER_AFTER_POINT } from './const.js';
 import { clearAllLoadPhotos } from './load-images.js';
 import { onResetSliderPriceClick } from './slider.js';
+import { setFormActive } from './form-switcher.js';
 
 const SubmitButtonText = {
   IDLE: 'Сохранить',
@@ -41,7 +42,8 @@ const unblockSubmitButton = () => {
   submitButton.textContent = SubmitButtonText.IDLE;
 };
 
-const setUserFormSubmit = () => {
+const initForm = () => {
+  setFormActive();
   formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
@@ -61,4 +63,4 @@ const setUserFormSubmit = () => {
   });
 };
 
-export { setUserFormSubmit };
+export { initForm };

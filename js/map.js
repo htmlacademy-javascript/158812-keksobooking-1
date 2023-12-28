@@ -1,7 +1,7 @@
 import { MAP_START_ZOOM, mainPoint, NUMBER_AFTER_POINT } from './const.js';
 import { createPopup } from './popup.js';
-import { setFormActive } from './form-switcher.js';
 import { getLocationToString } from './utils.js';
+import { initForm } from './form-send.js';
 
 const mainPinLocation = document.querySelector('#address');
 
@@ -52,7 +52,7 @@ const renderMarkers = (array) => {
 const initMap = () => {
   map
     .on('load', () => {
-      setFormActive();
+      initForm();
     })
     .setView(mainPoint, MAP_START_ZOOM);
 

@@ -4,6 +4,7 @@ const MAP_START_ZOOM = 12;
 const NUMBER_AFTER_POINT = 5;
 const TIMEOUT_DELAY = 500;
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+const DEFAULT_VALUE = 'any';
 const mainPoint = {
   lat: 35.68442,
   lng: 139.75425
@@ -33,4 +34,4 @@ const minPrice = {
   palace: 10000,
 };
 
-export { SIMILAR_OFFERS_COUNT, offerTypeToTitle, Title, MAX_PRICE_PER_NIGHT, roomsCapacity, minPrice, MAP_START_ZOOM, mainPoint, NUMBER_AFTER_POINT, TIMEOUT_DELAY, FILE_TYPES };
+export { SIMILAR_OFFERS_COUNT, offerTypeToTitle, Title, MAX_PRICE_PER_NIGHT, roomsCapacity, minPrice, MAP_START_ZOOM, mainPoint, NUMBER_AFTER_POINT, TIMEOUT_DELAY, FILE_TYPES, DEFAULT_VALUE };

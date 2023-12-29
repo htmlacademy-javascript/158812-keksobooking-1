@@ -1,60 +1,45 @@
 import { isEscapeKey } from './utils.js';
 
-const body = document.querySelector('body');
-const successTemplate = document.querySelector('#success').content.querySelector('.success');
-const successElement = successTemplate.cloneNode(true);
-const errorTemplate = document.querySelector('#error').content.querySelector('.error');
-const errorElement = errorTemplate.cloneNode(true);
-const closeButton = errorElement.querySelector('.error__button');
+const bodyElement = document.querySelector('body');
+const successTemplate = document.querySelector('#success')
+  .content
+  .querySelector('.success')
+  .cloneNode(true);
+const errorTemplate = document.querySelector('#error')
+  .content
+  .querySelector('.error')
+  .cloneNode(true);
 
-const onMessageSuccessEscapeDown = (evt) => {
+const messageRemoveElement = () => successTemplate.remove() || errorTemplate.remove();
+
+const onMessageKeyDown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeSuccessSendMessage();
+    bodyElement.classList.remove('modal-show');
+    messageRemoveElement();
+    document.removeEventListener('keydown', onMessageKeyDown);
   }
 };
 
-const onMouseSuccessClickDown = () => {
-  closeSuccessSendMessage();
+const closeMessage = () => {
+  bodyElement.classList.remove('modal-show');
+  messageRemoveElement();
+  document.removeEventListener('keydown', onMessageKeyDown);
+  document.removeEventListener('click', closeMessage);
 };
 
-const openSuccessSendMessage = () => {
-  body.appendChild(successElement);
-
-  body.addEventListener('keydown', onMessageSuccessEscapeDown);
-  successElement.addEventListener('click', onMouseSuccessClickDown);
+const openSuccessMessage = () => {
+  bodyElement.append(successTemplate);
+  bodyElement.classList.add('modal-show');
+  document.addEventListener('keydown', onMessageKeyDown);
+  document.addEventListener('click', closeMessage);
 };
 
-function closeSuccessSendMessage () {
-  body.removeChild(successElement);
-
-  body.removeEventListener('keydown', onMessageSuccessEscapeDown);
-  successElement.removeEventListener('mousedown', onMouseSuccessClickDown);
-}
-
-const onMessageErrorEscapeDown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeErrorSendMessage();
-  }
+const openErrorMessage = () => {
+  bodyElement.append(errorTemplate);
+  bodyElement.classList.add('modal-show');
+  document.addEventListener('keydown', onMessageKeyDown);
+  errorTemplate.addEventListener('click', closeMessage);
 };
 
-const onMouseErrorClickDown = () => {
-  closeErrorSendMessage();
-};
-
-const openErrorSendMessage = () => {
-  body.appendChild(errorElement);
-
-  closeButton.addEventListener('click', onMouseErrorClickDown);
-  body.addEventListener('keydown', onMessageErrorEscapeDown);
-};
-
-function closeErrorSendMessage () {
-  body.removeChild(errorElement);
-
-  body.removeEventListener('keydown', onMessageErrorEscapeDown);
-  errorElement.removeEventListener('mousedown', onMouseErrorClickDown);
-}
-
-export { openSuccessSendMessage, openErrorSendMessage };
+export { openSuccessMessage, openErrorMessage };

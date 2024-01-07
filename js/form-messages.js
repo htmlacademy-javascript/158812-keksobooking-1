@@ -3,43 +3,40 @@ import { isEscapeKey } from './utils.js';
 const bodyElement = document.querySelector('body');
 const successTemplate = document.querySelector('#success')
   .content
-  .querySelector('.success')
-  .cloneNode(true);
+  .querySelector('.success');
+const successElement = successTemplate.cloneNode(true);
 const errorTemplate = document.querySelector('#error')
   .content
-  .querySelector('.error')
-  .cloneNode(true);
-
-const messageRemoveElement = () => successTemplate.remove() || errorTemplate.remove();
+  .querySelector('.error');
+const errorElement = errorTemplate.cloneNode(true);
 
 const onMessageKeyDown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    bodyElement.classList.remove('modal-show');
-    messageRemoveElement();
-    document.removeEventListener('keydown', onMessageKeyDown);
+    hideMessage();
   }
 };
 
-const closeMessage = () => {
-  bodyElement.classList.remove('modal-show');
-  messageRemoveElement();
-  document.removeEventListener('keydown', onMessageKeyDown);
-  document.removeEventListener('click', closeMessage);
+const closeMessageClick = () => {
+  hideMessage();
+  document.removeEventListener('click', closeMessageClick);
 };
 
+function hideMessage () {
+  document.querySelector('.modal').remove();
+  document.removeEventListener('keydown', onMessageKeyDown);
+}
+
 const openSuccessMessage = () => {
-  bodyElement.append(successTemplate);
-  bodyElement.classList.add('modal-show');
+  bodyElement.append(successElement);
+  successElement.addEventListener('click', closeMessageClick);
   document.addEventListener('keydown', onMessageKeyDown);
-  document.addEventListener('click', closeMessage);
 };
 
 const openErrorMessage = () => {
-  bodyElement.append(errorTemplate);
-  bodyElement.classList.add('modal-show');
+  bodyElement.append(errorElement);
+  errorElement.addEventListener('click', closeMessageClick);
   document.addEventListener('keydown', onMessageKeyDown);
-  errorTemplate.addEventListener('click', closeMessage);
 };
 
 export { openSuccessMessage, openErrorMessage };

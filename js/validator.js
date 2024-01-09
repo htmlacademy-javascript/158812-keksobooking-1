@@ -9,6 +9,16 @@ const capacityElement = document.querySelector('#capacity');
 const timeInElement = document.querySelector('#timein');
 const timeOutElement = document.querySelector('#timeout');
 
+const validatePriceElement = (value) => {
+  const unit = document.querySelector('#type');
+  return value >= minPrice[unit.value] && value <= MAX_PRICE_PER_NIGHT;
+};
+
+const getTypeErrorMessageElement = () => {
+  const unit = document.querySelector('#type');
+  return `Минимальная цена за ночь: ${minPrice[unit.value]}`;
+};
+
 const pristine = new Pristine(formElement, {
   classTo: 'ad-form__element',
   errorClass: 'ad-form__element--invalid',
@@ -26,20 +36,10 @@ pristine.addValidator(
   `От ${Title.MIN} до ${Title.MAX} символов`, 2, true
 );
 
-const validatePrice = (value) => {
-  const unit = document.querySelector('#type');
-  return value >= minPrice[unit.value] && value <= MAX_PRICE_PER_NIGHT;
-};
-
-const getTypeErrorMessage = () => {
-  const unit = document.querySelector('#type');
-  return `Минимальная цена за ночь: ${minPrice[unit.value]}`;
-};
-
 pristine.addValidator(
   priceElement,
-  validatePrice,
-  getTypeErrorMessage
+  validatePriceElement,
+  getTypeErrorMessageElement
 );
 
 const setMinPrice = (type, price) => {

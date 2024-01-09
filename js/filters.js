@@ -4,7 +4,6 @@ import { clearMarkers, renderMarkers } from './map.js';
 import { setElementsDisabled } from './utils.js';
 
 const filtersElement = document.querySelector('.map__filters');
-const filtersDisabledElement = document.querySelector('.map__filters--disabled');
 const typeFilterElement = filtersElement.querySelector('[name="housing-type"]');
 const priceFilterElement = filtersElement.querySelector('[name="housing-price"]');
 const roomsCountFilterElement = filtersElement.querySelector('[name="housing-rooms"]');
@@ -13,12 +12,12 @@ const featuresFilterElements = filtersElement.querySelectorAll('[name=features]'
 const filterElements = filtersElement.querySelectorAll('select, fieldset');
 
 const setFiltersActive = () => {
-  filtersElement.classList.remove(filtersDisabledElement);
+  filtersElement.classList.remove('map__filters--disabled');
   setElementsDisabled(filterElements, false);
 };
 
 const setFiltersInactive = () => {
-  filtersElement.classList.add(filtersDisabledElement);
+  filtersElement.classList.add('map__filters--disabled');
   setElementsDisabled(filterElements, true);
 };
 

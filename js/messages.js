@@ -12,31 +12,31 @@ const errorElement = errorTemplate.cloneNode(true);
 
 const hideMessage = () => {
   document.querySelector('.modal').remove();
-  document.removeEventListener('keydown', documentKeydownHandler);
+  document.removeEventListener('keydown', onDocumentKeydown);
 };
 
-function documentKeydownHandler (evt) {
+function onDocumentKeydown (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     hideMessage();
   }
 }
 
-function documentClickHandler () {
+function onMessageClick () {
   hideMessage();
-  document.removeEventListener('click', documentClickHandler);
+  document.removeEventListener('click', onMessageClick);
 }
 
 const openSuccessMessage = () => {
   bodyElement.append(successElement);
-  successElement.addEventListener('click', documentClickHandler);
-  document.addEventListener('keydown', documentKeydownHandler);
+  successElement.addEventListener('click', onMessageClick);
+  document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const openErrorMessage = () => {
   bodyElement.append(errorElement);
-  errorElement.addEventListener('click', documentClickHandler);
-  document.addEventListener('keydown', documentKeydownHandler);
+  errorElement.addEventListener('click', onMessageClick);
+  document.addEventListener('keydown', onDocumentKeydown);
 };
 
 export { openSuccessMessage, openErrorMessage };

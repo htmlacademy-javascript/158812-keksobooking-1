@@ -1,9 +1,9 @@
 import { MAP_START_ZOOM, mainPoint, NUMBER_AFTER_POINT } from './const.js';
 import { createPopup } from './popup.js';
 import { getLocationToString } from './utils.js';
-import { initForm } from './form-send.js';
+import { initForm } from './form.js';
 
-const mainPinLocation = document.querySelector('#address');
+const addressElement = document.querySelector('#address');
 
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
@@ -43,8 +43,8 @@ const renderMarker = (object) => {
     .bindPopup(createPopup(object));
 };
 
-const renderMarkers = (array) => {
-  array.forEach((element) => {
+const renderMarkers = (elements) => {
+  elements.forEach((element) => {
     renderMarker(element);
   });
 };
@@ -57,10 +57,10 @@ const initMap = () => {
     .setView(mainPoint, MAP_START_ZOOM);
 
   mainPinMarker.addTo(map);
-  mainPinLocation.value = getLocationToString(mainPinMarker.getLatLng(), NUMBER_AFTER_POINT);
+  addressElement.value = getLocationToString(mainPinMarker.getLatLng(), NUMBER_AFTER_POINT);
 
   mainPinMarker.on('moveend', (evt) => {
-    mainPinLocation.value = getLocationToString(evt.target.getLatLng(), NUMBER_AFTER_POINT);
+    addressElement.value = getLocationToString(evt.target.getLatLng(), NUMBER_AFTER_POINT);
   });
 
   L.tileLayer(
@@ -79,4 +79,4 @@ const resetMainPin = () => {
 
 const clearMarkers = () => markerGroup.clearLayers();
 
-export { initMap, resetMainPin, mainPinLocation, markerGroup, renderMarkers, clearMarkers };
+export { initMap, resetMainPin, addressElement, markerGroup, renderMarkers, clearMarkers };

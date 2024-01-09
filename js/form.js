@@ -1,12 +1,11 @@
-import { pristine, formElement } from'./form-validator.js';
-import { openSuccessMessage, openErrorMessage } from './form-messages.js';
+import { pristine, formElement, priceElement } from'./validator.js';
+import { openSuccessMessage, openErrorMessage } from './messages.js';
 import { sendData } from './api.js';
-import { resetMainPin, mainPinLocation } from './map.js';
-import { getLocationToString } from './utils.js';
+import { resetMainPin, addressElement } from './map.js';
+import { getLocationToString, setElementsDisabled } from './utils.js';
 import { mainPoint, NUMBER_AFTER_POINT } from './const.js';
-import { clearAllLoadPhotos } from './load-images.js';
-import { resetSlider } from './slider.js';
-import { setFormActive } from './form-switcher.js';
+import { clearAllLoadPhotos } from './upload-images.js';
+import { resetSliderPrice, initSliderPrice } from './slider.js';
 
 const SubmitButtonText = {
   IDLE: 'Сохранить',
@@ -15,15 +14,29 @@ const SubmitButtonText = {
 
 const resetFormButton = document.querySelector('.ad-form__reset');
 const submitButton = document.querySelector('.ad-form__submit');
+const formElements = formElement.querySelectorAll('select, fieldset');
+
+const setFormActive = () => {
+  formElement.classList.remove('ad-form--disabled');
+  setElementsDisabled(formElements, false);
+
+  const validate = () => pristine.validate(priceElement);
+  initSliderPrice(validate);
+};
+
+const setFormInactive = () => {
+  formElement.classList.add('ad-form--disabled');
+  setElementsDisabled(formElements, true);
+};
 
 const resetForm = (evt) => {
   evt.preventDefault();
   pristine.reset();
   clearAllLoadPhotos();
   formElement.reset();
-  mainPinLocation.value = getLocationToString(mainPoint, NUMBER_AFTER_POINT);
+  addressElement.value = getLocationToString(mainPoint, NUMBER_AFTER_POINT);
   resetMainPin();
-  resetSlider();
+  resetSliderPrice();
 };
 
 const onResetButtonClick = (evt) => {
@@ -43,6 +56,7 @@ const unblockSubmitButton = () => {
 };
 
 const initForm = () => {
+  addressElement.readOnly = true;
   setFormActive();
   formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -63,4 +77,4 @@ const initForm = () => {
   });
 };
 
-export { initForm };
+export { initForm, setFormActive, setFormInactive };

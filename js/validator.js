@@ -18,7 +18,6 @@ const pristine = new Pristine(formElement, {
   errorTextClass: 'text-help',
 });
 
-//Валидация заголовка объявления
 const validateAdTitle = (value) => value.length >= Title.MIN && value.length <= Title.MAX;
 
 pristine.addValidator(
@@ -27,7 +26,6 @@ pristine.addValidator(
   `От ${Title.MIN} до ${Title.MAX} символов`, 2, true
 );
 
-//Валидация цены за ночь и типа жилья
 const validatePrice = (value) => {
   const unit = document.querySelector('#type');
   return value >= minPrice[unit.value] && value <= MAX_PRICE_PER_NIGHT;
@@ -58,7 +56,6 @@ typeElement.addEventListener('change', () => {
   onAdTypeChange();
 });
 
-//Валидация количества комнат и гостей
 const validateCapacity = () => roomsCapacity[roomNumberElement.value].includes(capacityElement.value);
 
 const getCapacityErrorMessage = () => 'Выберите другое кол-во гостей или комнат';
@@ -73,7 +70,6 @@ pristine.addValidator(
   getCapacityErrorMessage
 );
 
-//Валидация времени заезда и выезда
 const setEqualSelectValues = (one, two) => {
   two.value = one.value;
 };

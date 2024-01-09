@@ -1,7 +1,9 @@
-import { MAP_START_ZOOM, mainPoint, NUMBER_AFTER_POINT } from './const.js';
+import { MAP_START_ZOOM, mainPoint, NUMBER_AFTER_POINT, SIMILAR_OFFERS_COUNT } from './const.js';
 import { createPopup } from './popup.js';
-import { getLocationToString } from './utils.js';
+import { getLocationToString, showAlert } from './utils.js';
 import { initForm } from './form.js';
+import { getData } from './api.js';
+import { initFilters } from './filters.js';
 
 const addressElement = document.querySelector('#address');
 
@@ -53,6 +55,15 @@ const initMap = () => {
   map
     .on('load', () => {
       initForm();
+
+      getData()
+        .then((offers) => {
+          renderMarkers(offers.slice(0, SIMILAR_OFFERS_COUNT));
+          initFilters(offers);
+        })
+        .catch((err) => {
+          showAlert(err.message);
+        });
     })
     .setView(mainPoint, MAP_START_ZOOM);
 

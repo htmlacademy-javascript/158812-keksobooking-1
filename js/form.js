@@ -12,8 +12,8 @@ const SubmitButtonText = {
   SENDING: 'Сохраняю...'
 };
 
-const resetFormButton = document.querySelector('.ad-form__reset');
-const submitButton = document.querySelector('.ad-form__submit');
+const resetFormButtonElement = document.querySelector('.ad-form__reset');
+const submitButtonElement = document.querySelector('.ad-form__submit');
 const formElements = formElement.querySelectorAll('select, fieldset');
 
 const setFormActive = () => {
@@ -43,16 +43,16 @@ const onResetButtonClick = (evt) => {
   resetForm(evt);
 };
 
-resetFormButton.addEventListener('click', onResetButtonClick);
+resetFormButtonElement.addEventListener('click', onResetButtonClick);
 
 const blockSubmitButton = () => {
-  submitButton.disabled = true;
-  submitButton.textContent = SubmitButtonText.SENDING;
+  submitButtonElement.disabled = true;
+  submitButtonElement.textContent = SubmitButtonText.SENDING;
 };
 
 const unblockSubmitButton = () => {
-  submitButton.disabled = false;
-  submitButton.textContent = SubmitButtonText.IDLE;
+  submitButtonElement.disabled = false;
+  submitButtonElement.textContent = SubmitButtonText.IDLE;
 };
 
 const initForm = () => {

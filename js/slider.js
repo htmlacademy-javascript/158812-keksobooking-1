@@ -1,9 +1,9 @@
-import { priceElement } from'./form-validator.js';
+import { priceElement } from'./validator.js';
 import { MAX_PRICE_PER_NIGHT } from './const.js';
 
 const sliderElement = document.querySelector('.ad-form__slider');
 
-const sliderPriceInit = (cb) => {
+const initSliderPrice = (cb) => {
   noUiSlider.create(sliderElement, {
     range: {
       min: 0,
@@ -24,8 +24,8 @@ const sliderPriceInit = (cb) => {
   });
 };
 
-const resetSlider = () => {
+const resetSliderPrice = () => {
   sliderElement.noUiSlider.reset();
 };
 
-export { sliderPriceInit, resetSlider };
+export { initSliderPrice, resetSliderPrice };

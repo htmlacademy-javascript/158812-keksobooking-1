@@ -5,15 +5,15 @@ const avatarPreviewElement = document.querySelector('.ad-form-header__preview im
 const photoChooserElement = document.querySelector('.ad-form__upload input[type=file]');
 const photoPreviewElement = document.querySelector('.ad-form__photo');
 
-const matchTypes = (file) => FILE_TYPES.some((it) => file.endsWith(it));
+const getMatchTypes = (file) => FILE_TYPES.some((it) => file.endsWith(it));
 
 avatarChooserElement.addEventListener('change', () => {
   const avatar = avatarChooserElement.files[0];
   const fileName = avatar.name.toLowerCase();
 
-  matchTypes(fileName);
+  getMatchTypes(fileName);
 
-  if (matchTypes) {
+  if (getMatchTypes) {
     avatarPreviewElement.src = URL.createObjectURL(avatar);
   }
 });
@@ -22,9 +22,9 @@ photoChooserElement.addEventListener('change', () => {
   const photo = photoChooserElement.files[0];
   const photoName = photo.name.toLowerCase();
 
-  matchTypes(photoName);
+  getMatchTypes(photoName);
 
-  if (matchTypes) {
+  if (getMatchTypes) {
     photoPreviewElement.innerHTML = `<img src="${URL.createObjectURL(photo)}" width="70" height="70">`;
   }
 });

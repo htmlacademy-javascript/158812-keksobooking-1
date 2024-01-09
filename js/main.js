@@ -9,13 +9,17 @@ import { initFilters } from './filters.js';
 setFormInactive();
 setFiltersInactive();
 
-getData()
-  .then((offers) => {
-    initMap();
-    renderMarkers(offers.slice(0, SIMILAR_OFFERS_COUNT));
-    initFilters(offers);
-  })
-  .catch((err) => {
-    showAlert(err.message);
-  });
+const createBootstrap = () => {
+  initMap();
 
+  getData()
+    .then((offers) => {
+      renderMarkers(offers.slice(0, SIMILAR_OFFERS_COUNT));
+      initFilters(offers);
+    })
+    .catch((err) => {
+      showAlert(err.message);
+    });
+};
+
+createBootstrap();

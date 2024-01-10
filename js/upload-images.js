@@ -11,9 +11,9 @@ avatarChooserElement.addEventListener('change', () => {
   const avatar = avatarChooserElement.files[0];
   const fileName = avatar.name.toLowerCase();
 
-  getMatchTypes(fileName);
+  const matches = getMatchTypes(fileName);
 
-  if (getMatchTypes) {
+  if (matches) {
     avatarPreviewElement.src = URL.createObjectURL(avatar);
   }
 });
@@ -22,9 +22,9 @@ photoChooserElement.addEventListener('change', () => {
   const photo = photoChooserElement.files[0];
   const photoName = photo.name.toLowerCase();
 
-  getMatchTypes(photoName);
+  const matches = getMatchTypes(photoName);
 
-  if (getMatchTypes) {
+  if (matches) {
     photoPreviewElement.innerHTML = `<img src="${URL.createObjectURL(photo)}" width="70" height="70">`;
   }
 });

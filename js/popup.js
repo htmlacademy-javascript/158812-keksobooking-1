@@ -4,14 +4,15 @@ const similarOfferTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
-const createFeatureElements = (features, offerFeatures) => {
-  features.forEach((listItem) => {
-    const isNecessary = offerFeatures.some((feature) =>
-      listItem.classList.contains(`popup__feature--${feature}`),
-    );
-    if (!isNecessary) {
-      listItem.remove();
-    }
+const createFeatureElements = (offerFeatures, features) => {
+  const featuresContainer = offerFeatures;
+  featuresContainer.innerHTML = '';
+
+  features.forEach((feature) => {
+    const featureElement = document.createElement('li');
+    featureElement.classList.add('popup__feature', `popup__feature--${feature}`);
+
+    featuresContainer.append(featureElement);
   });
 };
 
@@ -43,7 +44,6 @@ const createPopup = (props) => {
   const offerFeaturesElement = offerElement.querySelector('.popup__features');
   const offerPhotosElement = offerElement.querySelector('.popup__photos');
   const authorAvatarElement = offerElement.querySelector('.popup__avatar');
-  const featuresListElements = offerFeaturesElement.querySelectorAll('.popup__feature');
 
   offerTitleElement.textContent = offer.title;
   offerAddressElement.textContent = offer.address;
@@ -61,7 +61,7 @@ const createPopup = (props) => {
   }
 
   if (offer.features) {
-    createFeatureElements(featuresListElements, offer.features);
+    createFeatureElements(offerFeaturesElement, offer.features);
   } else {
     offerFeaturesElement.remove();
   }

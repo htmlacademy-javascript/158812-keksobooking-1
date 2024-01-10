@@ -12,19 +12,23 @@ const errorElement = errorTemplate.cloneNode(true);
 
 const removeMessageElement = () => successElement.remove() || errorElement.remove();
 
-const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    removeMessageElement();
-    document.removeEventListener('keydown', onDocumentKeydown);
-  }
-};
-
-const onMessageClick = () => {
-  removeMessageElement();
+const hideMessage = () => {
   document.removeEventListener('click', onMessageClick);
   document.removeEventListener('keydown', onDocumentKeydown);
 };
+
+function onDocumentKeydown (evt) {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    removeMessageElement();
+    hideMessage();
+  }
+}
+
+function onMessageClick () {
+  removeMessageElement();
+  hideMessage();
+}
 
 const openSuccessMessage = () => {
   bodyElement.append(successElement);

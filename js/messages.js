@@ -15,18 +15,18 @@ const removeMessageElement = () => successElement.remove() || errorElement.remov
 const hideMessage = () => {
   document.removeEventListener('click', onMessageClick);
   document.removeEventListener('keydown', onDocumentKeydown);
+
+  removeMessageElement();
 };
 
 function onDocumentKeydown (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    removeMessageElement();
     hideMessage();
   }
 }
 
 function onMessageClick () {
-  removeMessageElement();
   hideMessage();
 }
 

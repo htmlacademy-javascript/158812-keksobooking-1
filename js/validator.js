@@ -9,15 +9,9 @@ const capacityElement = document.querySelector('#capacity');
 const timeInElement = document.querySelector('#timein');
 const timeOutElement = document.querySelector('#timeout');
 
-const validatePriceElement = (value) => {
-  const unit = document.querySelector('#type');
-  return value >= minPrice[unit.value] && value <= MAX_PRICE_PER_NIGHT;
-};
+const validatePriceElement = (value) => value >= minPrice[typeElement.value] && value <= MAX_PRICE_PER_NIGHT;
 
-const getTypeErrorMessageElement = () => {
-  const unit = document.querySelector('#type');
-  return `Минимальная цена за ночь: ${minPrice[unit.value]}`;
-};
+const getTypeErrorMessageElement = () => `Минимальная цена за ночь: ${minPrice[typeElement.value]}`;
 
 const pristine = new Pristine(formElement, {
   classTo: 'ad-form__element',

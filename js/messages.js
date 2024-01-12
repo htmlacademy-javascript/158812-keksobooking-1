@@ -10,32 +10,42 @@ const errorTemplate = document.querySelector('#error')
   .querySelector('.error');
 const errorElement = errorTemplate.cloneNode(true);
 
-const hideMessage = () => {
-  document.querySelector('.modal').remove();
+const hideMessage = (element) => {
+  document.removeEventListener('click', onMessageClick);
   document.removeEventListener('keydown', onDocumentKeydown);
+
+  element.remove();
+};
+
+const checkElementByRemoved = () => {
+  if (bodyElement.contains(successElement)) {
+    hideMessage(successElement);
+  } else {
+    hideMessage(errorElement);
+  }
 };
 
 function onDocumentKeydown (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    hideMessage();
+
+    checkElementByRemoved();
   }
 }
 
 function onMessageClick () {
-  hideMessage();
-  document.removeEventListener('click', onMessageClick);
+  checkElementByRemoved();
 }
 
 const openSuccessMessage = () => {
   bodyElement.append(successElement);
-  successElement.addEventListener('click', onMessageClick);
+  document.addEventListener('click', onMessageClick);
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const openErrorMessage = () => {
   bodyElement.append(errorElement);
-  errorElement.addEventListener('click', onMessageClick);
+  document.addEventListener('click', onMessageClick);
   document.addEventListener('keydown', onDocumentKeydown);
 };
 

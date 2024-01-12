@@ -1,5 +1,5 @@
 import { priceElement } from'./validator.js';
-import { MAX_PRICE_PER_NIGHT } from './const.js';
+import { MAX_PRICE_PER_NIGHT, TIMEOUT_DELAY } from './const.js';
 
 const sliderElement = document.querySelector('.ad-form__slider');
 
@@ -16,7 +16,7 @@ const initSliderPrice = (cb) => {
   sliderElement.noUiSlider.on('slide', () => {
     const sliderValue = sliderElement.noUiSlider.get();
     priceElement.value = parseInt(sliderValue, 10);
-    setTimeout(cb, 100);
+    setTimeout(cb, TIMEOUT_DELAY);
   });
 
   priceElement.addEventListener('input', () => {

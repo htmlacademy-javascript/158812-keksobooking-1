@@ -55,7 +55,7 @@ const checkByFeatures = ({offer}, checkedFeatures) => {
   if (!offer.features) {
     return false;
   }
-  return checkedFeatures.every((feature) => offer.features.includes(feature));
+  return checkedFeatures.every((feature) => offer.features.includes(feature.value));
 };
 
 const getFilterOffers = (offers) => {
@@ -64,8 +64,7 @@ const getFilterOffers = (offers) => {
 
   const checkedFeatures = Array
     .from(featuresFilterElements)
-    .filter((feature) => feature.checked === true)
-    .map((feature) => feature.value);
+    .filter((feature) => feature.checked);
 
   for (const offer of offers) {
     if (filteredOffers.length >= SIMILAR_OFFERS_COUNT) {

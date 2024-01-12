@@ -4,15 +4,14 @@ const similarOfferTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
-const createFeatureElements = (offerFeatures, features) => {
-  const featuresContainer = offerFeatures;
-  featuresContainer.innerHTML = '';
+const renderFeatures = (containerElement, features) => {
+  containerElement.innerHTML = '';
 
   features.forEach((feature) => {
     const featureElement = document.createElement('li');
     featureElement.classList.add('popup__feature', `popup__feature--${feature}`);
 
-    featuresContainer.append(featureElement);
+    containerElement.append(featureElement);
   });
 };
 
@@ -61,7 +60,7 @@ const createPopup = (props) => {
   }
 
   if (offer.features) {
-    createFeatureElements(offerFeaturesElement, offer.features);
+    renderFeatures(offerFeaturesElement, offer.features);
   } else {
     offerFeaturesElement.remove();
   }

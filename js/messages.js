@@ -10,24 +10,31 @@ const errorTemplate = document.querySelector('#error')
   .querySelector('.error');
 const errorElement = errorTemplate.cloneNode(true);
 
-const removeMessageElement = () => successElement.remove() || errorElement.remove();
-
-const hideMessage = () => {
+const hideMessage = (element) => {
   document.removeEventListener('click', onMessageClick);
   document.removeEventListener('keydown', onDocumentKeydown);
 
-  removeMessageElement();
+  element.remove();
+};
+
+const checkElementByRemoved = () => {
+  if (bodyElement.contains(successElement)) {
+    hideMessage(successElement);
+  } else {
+    hideMessage(errorElement);
+  }
 };
 
 function onDocumentKeydown (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    hideMessage();
+
+    checkElementByRemoved();
   }
 }
 
 function onMessageClick () {
-  hideMessage();
+  checkElementByRemoved();
 }
 
 const openSuccessMessage = () => {
